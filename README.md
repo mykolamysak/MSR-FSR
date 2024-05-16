@@ -5,8 +5,6 @@
 **Matrix Shift Register (MSR)**
 ![MSR Screen](scr/gh/MSR_Screenshot.jpg)
 
----
-
 **Excel Output**  
 ![Excel Screen](scr/gh/Excel_Screenshot.jpg)
 
