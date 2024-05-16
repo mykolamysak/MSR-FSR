@@ -7,7 +7,7 @@
 
 ---
 
-**Excel Output**
+**Excel Output**  
 ![Excel Screen](scr/gh/Excel_Screenshot.jpg)
 
 
