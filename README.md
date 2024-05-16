@@ -2,16 +2,16 @@
 
 ## Screenshots 📷
 
-1. Menu Screen
+1. Menu
 ![Menu Screen](scr/gh/Menu_Screenshot.jpg)
 
-2. Feedback Shift Register (FSR) Screen
+2. Feedback Shift Register (FSR)
 ![FSR Screen](scr/gh/FSR_Screenshot.jpg)
 
-3. Matrix Shift Register (MSR) Screen
+3. Matrix Shift Register (MSR) 
 ![MSR Screen](scr/gh/MSR_Screenshot.jpg)
 
-4. Excel Output Screen
+4. Excel Output
 ![Excel Screen](scr/gh/Excel_Screenshot.jpg)
 
 
