@@ -70,6 +70,13 @@ If you would like to contribute to this project, please follow these steps:
 
 - [IconFinder](https://www.iconfinder.com/) for the icons
 
+
+## Developed by 🐱 
+
+- Mysak Mykola
+- Lola Yunusova
+
+
 ## License 🌓
 
 This project is licensed under the MIT License.
