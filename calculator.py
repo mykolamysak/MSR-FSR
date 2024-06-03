@@ -76,6 +76,9 @@ class Calculator:
                 self.bin_seq = convert_to_bin_seq(subsequence)
                 return subsequence
 
+    def r_is_valid(self):
+        return self.r <= self.n
+
     # Calculate autocorrelation
     def get_acf(self):
         T_A = self.a_poly.get_period()  # Period of sequence A
@@ -103,9 +106,3 @@ class Calculator:
             output_acf = [normalized_acf_value] * T_S
 
         return output_acf
-
-
-
-
-
-

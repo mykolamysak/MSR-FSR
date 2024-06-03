@@ -1,10 +1,10 @@
 from polynomial_utilities import Polynomial
 
+
 # Creating a table with abbreviated binary values
 def binary_table(binary_string):
     n = len(binary_string)
-    table = []
-    table.append(binary_string[1:])
+    table = [binary_string[1:]]
     for i in range(1, n-1):
         row = "0" * (i - 1) + "1" + "0" * (n - i - 1)
         table.append(row)
@@ -69,4 +69,5 @@ def binary_to_F(binary_value):
                 polynomial.append(f"x^{exponent}")
 
     return ' + '.join(polynomial)
+
 

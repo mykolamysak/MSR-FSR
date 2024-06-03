@@ -2,7 +2,7 @@ from calculator import Calculator
 from polynomial_utilities import Polynomial
 from binary_utilities import validate, Binary_C, binary_to_F
 from polynomials import polynomials
-from tkinter import ttk, messagebox, font
+from tkinter import ttk, messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
@@ -73,7 +73,6 @@ class App(tk.Tk):
         super().__init__()
         self.initialize_ui()
         self.resizable(False, False)
-        self.montserrat_font = font.Font(family="Montserrat", size=10)
 
         self.selected_polynomial_A = None
         self.selected_polynomial_B = None
@@ -191,7 +190,8 @@ class App(tk.Tk):
         self.sequence_C = tk.Text(self.additional_results, height=1, width=50, wrap="none")
         self.sequence_C.grid(row=4, column=0, padx=10, pady=5)
 
-        self.sequence_C_scrollbar = tk.Scrollbar(self.additional_results, orient="horizontal", command=self.sequence_C.xview)
+        self.sequence_C_scrollbar = tk.Scrollbar(self.additional_results, orient="horizontal",
+                                                 command=self.sequence_C.xview)
         self.sequence_C_scrollbar.grid(row=5, column=0, padx=10, pady=5, sticky="ew")
         self.sequence_C.config(xscrollcommand=self.sequence_C_scrollbar.set)
 
@@ -314,4 +314,6 @@ class App(tk.Tk):
 
 if __name__ == "__main__":
     app = App()
+    icon_path = "scr/images/icon.ico"
+    app.iconbitmap(default=icon_path)
     app.mainloop()
