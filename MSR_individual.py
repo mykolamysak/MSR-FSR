@@ -5,9 +5,11 @@ from polynomials import polynomials
 from tkinter import ttk, messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from save_to_excel import save_to_excel
 
 import matplotlib
 import tkinter as tk
+
 matplotlib.use('TkAgg')
 
 
@@ -101,7 +103,7 @@ class App(tk.Tk):
         self.graph_frame.grid(row=1, column=1, padx=5, pady=5, columnspan=2, sticky="w")
 
         # Polynomial input frame elements
-        self.degree_A_label = tk.Label(self.polynomial_frame, text="Degree A:")
+        self.degree_A_label = ttk.Label(self.polynomial_frame, text="Degree A:")
         self.degree_A_label.grid(row=0, column=0, sticky="w", padx=10, pady=5)
 
         self.degree_A_combobox = ttk.Combobox(self.polynomial_frame, values=[str(i) for i in range(2, 16)],
@@ -113,7 +115,7 @@ class App(tk.Tk):
         self.polynomial_A_combobox.grid(row=2, column=0, sticky="w", padx=10, pady=5)
         self.polynomial_A_combobox.bind("<<ComboboxSelected>>", self.selected_polynomial_A)
 
-        self.degree_B_label = tk.Label(self.polynomial_frame, text="Degree B:")
+        self.degree_B_label = ttk.Label(self.polynomial_frame, text="Degree B:")
         self.degree_B_label.grid(row=0, column=1, sticky="w", padx=10, pady=5)
 
         self.degree_B_combobox = ttk.Combobox(self.polynomial_frame, values=[str(i) for i in range(2, 16)],
@@ -125,35 +127,36 @@ class App(tk.Tk):
         self.polynomial_B_combobox.grid(row=2, column=1, sticky="w", padx=10, pady=5)
         self.polynomial_B_combobox.bind("<<ComboboxSelected>>", self.selected_polynomial_B)
 
-        self.rank_label = tk.Label(self.polynomial_frame, text="Rank:")
+        self.rank_label = ttk.Label(self.polynomial_frame, text="Rank:")
         self.rank_label.grid(row=3, column=0, sticky="w", padx=10, pady=5)
 
         self.rank_combobox = ttk.Combobox(self.polynomial_frame, state="readonly", width=5)
         self.rank_combobox.grid(row=4, column=0, sticky="w", padx=10)
 
-        self.position_i = tk.Label(self.polynomial_frame, text="Value it:")
+        self.position_i = ttk.Label(self.polynomial_frame, text="Value it:")
         self.position_i.grid(row=3, column=1, sticky="w", padx=8, pady=5)
 
         self.i_combobox = ttk.Combobox(self.polynomial_frame, state="readonly", width=5)
         self.i_combobox.grid(row=4, column=1, sticky="w", padx=10, pady=5)
 
-        self.position_j = tk.Label(self.polynomial_frame, text="Value jt:")
+        self.position_j = ttk.Label(self.polynomial_frame, text="Value jt:")
         self.position_j.grid(row=3, column=1, sticky="w", padx=100, pady=5)
 
         self.j_combobox = ttk.Combobox(self.polynomial_frame, state="readonly", width=5)
         self.j_combobox.grid(row=4, column=1, sticky="w", padx=100, pady=5)
 
-        self.submit_button = tk.Button(self.polynomial_frame, text="Calculate", command=self.submit, width=10)
+        self.submit_button = ttk.Button(self.polynomial_frame, text="Calculate&SaveToExcel", command=self.submit,
+                                        width=25)
         self.submit_button.grid(row=8, column=0, sticky="w", padx=10, pady=15)
 
         # Result frame elements
-        self.result_text_A_label = tk.Label(self.result_frame, text="Matrix A:")
+        self.result_text_A_label = ttk.Label(self.result_frame, text="Matrix A:")
         self.result_text_A_label.grid(row=0, column=0, padx=10, sticky="w")
 
         self.result_text_A = tk.Text(self.result_frame, height=5, width=20)
         self.result_text_A.grid(row=1, column=0, padx=10)
 
-        self.result_text_B_label = tk.Label(self.result_frame, text="Matrix B:")
+        self.result_text_B_label = ttk.Label(self.result_frame, text="Matrix B:")
         self.result_text_B_label.grid(row=0, column=2, padx=20, pady=5, sticky="w")
 
         self.result_text_B = tk.Text(self.result_frame, height=5, width=20)
@@ -165,51 +168,51 @@ class App(tk.Tk):
         self.result_text_S = tk.Text(self.result_frame, height=5, width=20)
         self.result_text_S.grid(row=1, column=1, padx=20, pady=5)
 
-        self.period_label = tk.Label(self.result_frame, text="T:")
+        self.period_label = ttk.Label(self.result_frame, text="T:")
         self.period_label.grid(row=2, column=1, padx=20, pady=5, sticky="w")
 
-        self.period_exp_label = tk.Label(self.result_frame, text="T(exp):")
+        self.period_exp_label = ttk.Label(self.result_frame, text="T(exp):")
         self.period_exp_label.grid(row=3, column=1, padx=20, pady=5, sticky="w")
 
-        self.period_label_A = tk.Label(self.result_frame, text="T(A):")
+        self.period_label_A = ttk.Label(self.result_frame, text="T(A):")
         self.period_label_A.grid(row=2, column=0, padx=10, pady=5, sticky="w")
 
-        self.period_label_B = tk.Label(self.result_frame, text="T(B):")
+        self.period_label_B = ttk.Label(self.result_frame, text="T(B):")
         self.period_label_B.grid(row=2, column=2, padx=20, pady=5, sticky="w")
 
-        self.hamming_weight_value = tk.Label(self.result_frame, text="wH:")
+        self.hamming_weight_value = ttk.Label(self.result_frame, text="wH:")
         self.hamming_weight_value.grid(row=4, column=1, padx=20, pady=5, sticky="w")
 
-        self.hamming_weight_exp_value = tk.Label(self.result_frame, text="wH(exp):")
+        self.hamming_weight_exp_value = ttk.Label(self.result_frame, text="wH(exp):")
         self.hamming_weight_exp_value.grid(row=5, column=1, padx=20, pady=5, sticky="w")
 
         # Additional results frame elements
-        self.sequence_C_label = tk.Label(self.additional_results, text="C sequence:")
+        self.sequence_C_label = ttk.Label(self.additional_results, text="C sequence:")
         self.sequence_C_label.grid(row=3, column=0, padx=30, pady=5, sticky="w")
 
         self.sequence_C = tk.Text(self.additional_results, height=1, width=50, wrap="none")
         self.sequence_C.grid(row=4, column=0, padx=10, pady=5)
 
-        self.sequence_C_scrollbar = tk.Scrollbar(self.additional_results, orient="horizontal",
-                                                 command=self.sequence_C.xview)
+        self.sequence_C_scrollbar = ttk.Scrollbar(self.additional_results, orient="horizontal",
+                                                  command=self.sequence_C.xview)
         self.sequence_C_scrollbar.grid(row=5, column=0, padx=10, pady=5, sticky="ew")
         self.sequence_C.config(xscrollcommand=self.sequence_C_scrollbar.set)
 
-        self.binary_C_Label = tk.Label(self.additional_results, text="Binary sequence:")
+        self.binary_C_Label = ttk.Label(self.additional_results, text="Binary sequence:")
         self.binary_C_Label.grid(row=6, column=0, padx=30, pady=5, sticky="w")
 
         self.Binary_C_result = tk.Text(self.additional_results, height=1, width=50, wrap="none")
         self.Binary_C_result.grid(row=7, column=0, padx=10, pady=5)
 
-        self.Binary_C_scrollbar = tk.Scrollbar(self.additional_results, orient="horizontal",
-                                               command=self.Binary_C_result.xview)
+        self.Binary_C_scrollbar = ttk.Scrollbar(self.additional_results, orient="horizontal",
+                                                command=self.Binary_C_result.xview)
         self.Binary_C_scrollbar.grid(row=8, column=0, padx=10, pady=5, sticky="ew")
         self.Binary_C_result.config(xscrollcommand=self.Binary_C_scrollbar.set)
 
-        self.F_label_A = tk.Label(self.additional_results, text="Fa(x):")
+        self.F_label_A = ttk.Label(self.additional_results, text="Fa(x):")
         self.F_label_A.grid(row=9, column=0, padx=10, pady=5, sticky="w")
 
-        self.F_label_B = tk.Label(self.additional_results, text="Fb(x):")
+        self.F_label_B = ttk.Label(self.additional_results, text="Fb(x):")
         self.F_label_B.grid(row=10, column=0, padx=10, pady=5, sticky="w")
 
         # Graph frame elements
@@ -228,7 +231,6 @@ class App(tk.Tk):
         self.update_rank_values()
 
     def submit(self):
-
         # Get values
         selected_polynomial_A_str = self.polynomial_A_combobox.get()
         selected_polynomial_B_str = self.polynomial_B_combobox.get()
@@ -255,14 +257,15 @@ class App(tk.Tk):
             validate(poly_A, poly_B)
 
         except Exception as e:
-            messagebox.showerror("Error occured while choosing polynomial", str(e))
+            messagebox.showerror("Error occurred while choosing polynomial", str(e))
             return
 
         # Get r
         r = int(self.rank_combobox.get())
 
-        # Creating HammingCalculator object
+        # Creating Calculator object with the updated rank
         calculator = Calculator(poly_A, poly_B, i, j)
+        calculator.r = r
 
         # Output results
         self.result_text_A.delete('1.0', tk.END)
@@ -310,6 +313,8 @@ class App(tk.Tk):
         plot.set_ylabel('Autocorrelation')
         plot.grid(True)
         self.plot_canvas.draw()
+
+        save_to_excel(self)
 
 
 if __name__ == "__main__":
